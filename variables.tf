@@ -80,7 +80,7 @@ variable "private-sg" {
 
 }
 
-variable "public-sg" {
+variable "alb-sg" {
   type = list(string)
 }
 

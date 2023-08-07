@@ -47,7 +47,7 @@ resource "aws_ecs_service" "rp-dev-services-sn" {
   }
   network_configuration {
     subnets = each.value.network_configuration.subnets
-    security_groups = var.public-sg
+    security_groups = var.alb-sg
     assign_public_ip = each.value.network_configuration.assign_public_ip
   }
 }
