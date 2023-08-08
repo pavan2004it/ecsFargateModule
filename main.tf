@@ -1,5 +1,9 @@
 resource "aws_ecs_cluster" "rp-dev-cluster" {
   name = var.cluster_name
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
+  }
 }
 
 resource "aws_ecs_task_definition" "rp-dev-task-definitions" {
