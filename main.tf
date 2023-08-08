@@ -6,7 +6,7 @@ resource "aws_ecs_cluster" "rp-ecs-cluster" {
   }
 }
 
-resource "aws_ecs_task_definition" "rp-dev-task-definitions" {
+resource "aws_ecs_task_definition" "rp-task-definitions" {
   for_each = var.task_definitions
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "rp-dev-task-definitions" {
   network_mode = each.value.network_mode
 }
 
-resource "aws_ecs_task_definition" "rp-dev-task-definitions-wp" {
+resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   for_each = var.task_definitions_wp
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "rp-dev-task-definitions-wp" {
 }
 
 
-resource "aws_ecs_service" "rp-dev-services-sn" {
+resource "aws_ecs_service" "rp-services-sn" {
   for_each = var.services
   name              = each.value.name
   cluster = aws_ecs_cluster.rp-ecs-cluster.name
@@ -56,7 +56,7 @@ resource "aws_ecs_service" "rp-dev-services-sn" {
   }
 }
 
-resource "aws_ecs_service" "rp-dev-services-wsn" {
+resource "aws_ecs_service" "rp-services-wsn" {
   for_each = var.services_wsn
   name              = each.value.name
   cluster = aws_ecs_cluster.rp-ecs-cluster.name
