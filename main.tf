@@ -1,4 +1,4 @@
-resource "aws_ecs_cluster" "rp-dev-cluster" {
+resource "aws_ecs_cluster" "rp-ecs-cluster" {
   name = var.cluster_name
   setting {
     name  = "containerInsights"
@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "rp-dev-task-definitions-wp" {
 resource "aws_ecs_service" "rp-dev-services-sn" {
   for_each = var.services
   name              = each.value.name
-  cluster = aws_ecs_cluster.rp-dev-cluster.name
+  cluster = aws_ecs_cluster.rp-ecs-cluster.name
   task_definition   = each.value.task_definition
   desired_count     = each.value.desired_count
   launch_type       = each.value.launch_type
@@ -59,7 +59,7 @@ resource "aws_ecs_service" "rp-dev-services-sn" {
 resource "aws_ecs_service" "rp-dev-services-wsn" {
   for_each = var.services_wsn
   name              = each.value.name
-  cluster = aws_ecs_cluster.rp-dev-cluster.name
+  cluster = aws_ecs_cluster.rp-ecs-cluster.name
   task_definition   = each.value.task_definition
   desired_count     = each.value.desired_count
   launch_type       = each.value.launch_type
@@ -81,7 +81,7 @@ resource "aws_appautoscaling_target" "ecs_target_walb" {
   for_each = var.services
   max_capacity       = 5
   min_capacity       = 1
-  resource_id        = "service/${aws_ecs_cluster.rp-dev-cluster.name}/${each.value.name}"
+  resource_id        = "service/${aws_ecs_cluster.rp-ecs-cluster.name}/${each.value.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace = "ecs"
 }
@@ -133,7 +133,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm_walb" {
   alarm_description   = "CPUUtilization exceeds 70% for 1 minute"
   alarm_actions       = [aws_appautoscaling_policy.cpu_scaling_policy_walb[each.key].arn]
   dimensions = {
-    ClusterName = aws_ecs_cluster.rp-dev-cluster.name
+    ClusterName = aws_ecs_cluster.rp-ecs-cluster.name
     ServiceName = each.value.name
   }
 }
@@ -151,7 +151,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_alarm_walb" {
   alarm_description   = "MemoryUtilization exceeds 70% for 1 minute"
   alarm_actions       = [aws_appautoscaling_policy.memory_scaling_policy_walb[each.key].arn]
   dimensions = {
-    ClusterName = aws_ecs_cluster.rp-dev-cluster.name
+    ClusterName = aws_ecs_cluster.rp-ecs-cluster.name
     ServiceName = each.value.name
   }
 }
@@ -163,7 +163,7 @@ resource "aws_appautoscaling_target" "ecs_target" {
   for_each = var.services_wsn
   max_capacity       = 5
   min_capacity       = 1
-  resource_id        = "service/${aws_ecs_cluster.rp-dev-cluster.name}/${each.value.name}"
+  resource_id        = "service/${aws_ecs_cluster.rp-ecs-cluster.name}/${each.value.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace = "ecs"
 }
@@ -215,7 +215,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   alarm_description   = "CPUUtilization exceeds 70% for 1 minute"
   alarm_actions       = [aws_appautoscaling_policy.cpu_scaling_policy[each.key].arn]
   dimensions = {
-    ClusterName = aws_ecs_cluster.rp-dev-cluster.name
+    ClusterName = aws_ecs_cluster.rp-ecs-cluster.name
     ServiceName = each.value.name
   }
 }
@@ -233,7 +233,7 @@ resource "aws_cloudwatch_metric_alarm" "memory_alarm" {
   alarm_description   = "MemoryUtilization exceeds 70% for 1 minute"
   alarm_actions       = [aws_appautoscaling_policy.memory_scaling_policy[each.key].arn]
   dimensions = {
-    ClusterName = aws_ecs_cluster.rp-dev-cluster.name
+    ClusterName = aws_ecs_cluster.rp-ecs-cluster.name
     ServiceName = each.value.name
   }
 }
