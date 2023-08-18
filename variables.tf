@@ -80,20 +80,12 @@ variable "private-sg" {
 
 }
 
-variable "alb-sg" {
-  type = list(string)
-}
-
 variable "cluster_name" {
   type = string
   default = ""
 }
 
 variable "vpc-id" {
-  type = string
-}
-
-variable "alb-sg-id" {
   type = string
 }
 
