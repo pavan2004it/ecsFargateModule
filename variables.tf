@@ -93,6 +93,10 @@ variable "rds-sg-id" {
   type = string
 }
 
+variable "service-tags" {
+  type = map(string)
+}
+
 
 
 
