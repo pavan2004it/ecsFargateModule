@@ -10,6 +10,7 @@ variable "services" {
       security_groups = list(string)
       assign_public_ip = bool
     })
+    tags = optional(map(string))
   }))
 }
 
@@ -66,6 +67,7 @@ variable "services_wsn" {
       security_groups = list(string)
       assign_public_ip = bool
     })
+    tags = optional(map(string))
   }))
 }
 
@@ -91,6 +93,10 @@ variable "vpc-id" {
 
 variable "rds-sg-id" {
   type = string
+}
+variable "service_tags" {
+  type = map(string)
+  default = {}
 }
 
 
