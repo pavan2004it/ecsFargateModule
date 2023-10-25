@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   dynamic "volume" {
     for_each = each.value.volume != null ? [each.value.volume[0]] : []
     content {
-      name = each.value.volume.name
+      name =volume.value.name
       efs_volume_configuration {
         file_system_id = volume.value.efs_volume_configuration.file_system_id
         root_directory = volume.value.efs_volume_configuration.root_directory
