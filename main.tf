@@ -21,6 +21,7 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   for_each = var.task_definitions_wp
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
+  volume = each.value.volume
   cpu = each.value.cpu
   memory = each.value.memory
   task_role_arn = each.value.task_role_arn

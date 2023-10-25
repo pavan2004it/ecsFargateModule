@@ -42,8 +42,10 @@ variable "task_definitions_wp" {
       image       = string
       environment = list(map(string))
       secrets = list(map(string))
+      mountPoints = optional(any)
       logConfiguration = any
     }))
+    volume = optional(any)
     cpu = string
     memory = string
     family = string
