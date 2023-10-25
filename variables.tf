@@ -45,7 +45,7 @@ variable "task_definitions_wp" {
       mountPoints = optional(list(any))
       logConfiguration = any
     }))
-    volume = optional(list(map(string)))
+    volume = optional(list(map(any)))
     cpu = string
     memory = string
     family = string
