@@ -21,11 +21,14 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   for_each = var.task_definitions_wp
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
-  volume {
-    name = each.value.volume.name
-    efs_volume_configuration {
-      file_system_id = each.value.volume.efs_volume_configuration.file_system_id
-      root_directory = each.value.volume.efs_volume_configuration.root_directory
+  dynamic "volume" {
+    for_each = each.value.volume != null ? [each.value.volume] : []
+    content {
+      name = each.value.volume.name
+      efs_volume_configuration {
+        file_system_id = each.value.volume.efs_volume_configuration.file_system_id
+        root_directory = each.value.volume.efs_volume_configuration.root_directory
+      }
     }
   }
   cpu = each.value.cpu

@@ -48,13 +48,13 @@ variable "task_definitions_wp" {
       })))
       logConfiguration = any
     }))
-    volume = optional(object({
+    volume = optional(list(object({
       name = string
       efs_volume_configuration = object({
         file_system_id = string
         root_directory = string
       })
-    }))
+    })))
     cpu = string
     memory = string
     family = string
