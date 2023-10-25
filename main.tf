@@ -26,8 +26,8 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
     content {
       name = each.value.volume.name
       efs_volume_configuration {
-        file_system_id = each.value.volume.efs_volume_configuration.file_system_id
-        root_directory = each.value.volume.efs_volume_configuration.root_directory
+        file_system_id = volume.value.efs_volume_configuration.file_system_id
+        root_directory = volume.value.efs_volume_configuration.root_directory
       }
     }
   }
