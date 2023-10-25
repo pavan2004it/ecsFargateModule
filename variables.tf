@@ -42,7 +42,10 @@ variable "task_definitions_wp" {
       image       = string
       environment = list(map(string))
       secrets = list(map(string))
-      mountPoints = optional(list(any))
+      mountPoints = optional(list(object({
+        sourceVolume = string
+        containerPath = string
+      })))
       logConfiguration = any
     }))
     volume = optional(list(object({
