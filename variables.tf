@@ -42,13 +42,10 @@ variable "task_definitions_wp" {
       image       = string
       environment = list(map(string))
       secrets = list(map(string))
-      mountPoints = optional(list(any))
+      mountPoints = optional(any)
       logConfiguration = any
     }))
-    volume = optional(list(map(object({
-      name = optional(string)
-      efs_volume_configuration = optional(any)
-    }))))
+    volume = optional(any)
     cpu = string
     memory = string
     family = string
