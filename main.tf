@@ -22,9 +22,9 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
   dynamic "volume" {
-    for_each = each.value.volume != null ? [each.value.volume[0]] : []
+    for_each = each.value.volume != null ? each.value.volume : []
     content {
-      name =volume.value.name
+      name = volume.value.name
       efs_volume_configuration {
         file_system_id = volume.value.efs_volume_configuration.file_system_id
         root_directory = volume.value.efs_volume_configuration.root_directory
