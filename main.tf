@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "rp-task-definitions-wp" {
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
   dynamic "volume" {
-    for_each = var.task_definitions_wp.volume
+    for_each = var.task_definitions_wp
     content {
       name = each.value.volume.name
       efs_volume_configuration {
