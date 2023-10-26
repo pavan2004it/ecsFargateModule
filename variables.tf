@@ -42,6 +42,8 @@ variable "task_definitions_wp" {
       image       = string
       environment = list(map(string))
       secrets = list(map(string))
+      entryPoint = optional(list(string))
+      command = optional(list(string))
       mountPoints = optional(list(object({
         sourceVolume = string
         containerPath = string
