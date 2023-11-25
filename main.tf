@@ -64,6 +64,7 @@ resource "aws_ecs_service" "rp-services-sn" {
     security_groups = var.private-sg
     assign_public_ip = each.value.network_configuration.assign_public_ip
   }
+  depends_on = [aws_ecs_task_definition.rp-task-definitions]
   tags = each.value.tags
 }
 
@@ -85,6 +86,7 @@ resource "aws_ecs_service" "rp-services-wsn" {
     assign_public_ip = each.value.network_configuration.assign_public_ip
   }
   tags = each.value.tags
+  depends_on = [aws_ecs_task_definition.rp-task-definitions-wp]
 }
 
 ### Autoscaling Config for Services with Alb
