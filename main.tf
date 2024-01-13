@@ -93,8 +93,8 @@ resource "aws_ecs_service" "rp-services-wsn" {
 
 resource "aws_appautoscaling_target" "ecs_target_walb" {
   for_each = var.services
-  max_capacity       = 5
-  min_capacity       = 1
+  max_capacity       = var.max_capacity_walb
+  min_capacity       = var.min_capacity_walb
   resource_id        = "service/${aws_ecs_cluster.rp-ecs-cluster.name}/${each.value.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace = "ecs"
@@ -175,8 +175,8 @@ resource "aws_cloudwatch_metric_alarm" "memory_alarm_walb" {
 
 resource "aws_appautoscaling_target" "ecs_target" {
   for_each = var.services_wsn
-  max_capacity       = 5
-  min_capacity       = 1
+  max_capacity       = var.max_capacity_nalb
+  min_capacity       = var.min_capacity_nalb
   resource_id        = "service/${aws_ecs_cluster.rp-ecs-cluster.name}/${each.value.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace = "ecs"

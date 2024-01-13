@@ -112,6 +112,29 @@ variable "service_tags" {
   default = {}
 }
 
+variable "max_capacity_walb" {
+  type = number
+  default = 1
+}
+
+variable "min_capacity_walb" {
+  type = number
+  default = 1
+}
+
+variable "max_capacity_nalb" {
+  type = number
+  default = 1
+}
+
+variable "min_capacity_nalb" {
+  type = number
+  default = 1
+}
+
+
+
+
 
 
 
