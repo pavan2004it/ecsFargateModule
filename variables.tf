@@ -22,9 +22,20 @@ variable "task_definitions" {
       image       = string
       environment = list(map(string))
       portMappings = optional(any)
+      mountPoints = optional(list(object({
+        sourceVolume = string
+        containerPath = string
+      })))
       secrets = list(map(string))
       logConfiguration = any
     }))
+    volume = optional(list(object({
+      name = string
+      efs_volume_configuration = object({
+        file_system_id = string
+        root_directory = string
+      })
+    })))
     cpu = string
     memory = string
     family = string
