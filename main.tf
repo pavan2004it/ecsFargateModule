@@ -10,6 +10,16 @@ resource "aws_ecs_task_definition" "rp-task-definitions" {
   for_each = var.task_definitions
   container_definitions = jsonencode(each.value.containerDefinitions)
   family = each.value.family
+  dynamic "volume" {
+    for_each = each.value.volume != null ? each.value.volume : []
+    content {
+      name = volume.value.name
+      efs_volume_configuration {
+        file_system_id = volume.value.efs_volume_configuration.file_system_id
+        root_directory = volume.value.efs_volume_configuration.root_directory
+      }
+    }
+  }
   cpu = each.value.cpu
   memory = each.value.memory
   task_role_arn = each.value.task_role_arn
